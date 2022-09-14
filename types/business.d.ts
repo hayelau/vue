@@ -24,3 +24,13 @@ type GuardianModel = {
   staffWechatName: string
   status: number
 }
+
+//被保人模型
+type InsurantModel = {
+  id: number
+  insuarntName: string
+  insurantIdNum: string
+  dataSource: string
+  guardLevel: string
+  status: number
+}
