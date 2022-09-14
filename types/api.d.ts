@@ -21,3 +21,9 @@ interface ResponsePageResult<T> {
     total: number
   }
 }
+
+//分页请求
+interface PageRequst {
+  pageNum: number
+  pageSize: number
+}

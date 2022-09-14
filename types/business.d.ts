@@ -14,3 +14,13 @@ type UserModel = {
   created_at?: string
   updated_at?: string
 }
+
+//打卡人模型
+type GuardianModel = {
+  id: number
+  name: string
+  phone: string
+  wechatName: string
+  staffWechatName: string
+  status: number
+}

@@ -4,7 +4,7 @@ import Navbar from './admin/navbar.vue'
 import HistoryLink from './admin/historyLink.vue'
 import userStore from '@/store/userStore'
 
-await Promise.all([userStore().getUserInfo()])
+// await Promise.all([userStore().getUserInfo()])
 </script>
 
 <template>

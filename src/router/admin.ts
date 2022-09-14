@@ -29,5 +29,23 @@ export default {
       component: () => import('@/views/admin/animateList.vue'),
       meta: { menu: { title: '动态列表' } },
     },
+    {
+      name: 'admin.guardList',
+      path: 'guardList',
+      component: () => import('@/views/admin/guardianList.vue'),
+      meta: { menu: { title: '打卡人信息' } },
+    },
+    {
+      name: 'admin.insurantList',
+      path: 'insurantList',
+      component: () => import('@/views/admin/insurantList.vue'),
+      meta: { menu: { title: '被保险人信息' } },
+    },
+    {
+      name: 'admin.wechatGroupInfos',
+      path: 'wechatGroupInfo',
+      component: () => import('@/views/admin/wechatGroupInfo.vue'),
+      meta: { menu: { title: '微信群关系信息' } },
+    },
   ],
 } as RouteRecordRaw
