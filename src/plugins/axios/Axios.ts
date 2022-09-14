@@ -54,14 +54,21 @@ export default class Axios {
   private interceptorsResponse() {
     this.instance.interceptors.response.use(
       (response) => {
+        const { data, config } = response;
         this.loading.close()
-        if (response.data?.message) {
+        if (data.code == 1000) {
           ElMessage({
             type: 'success',
             message: response.data.message,
             grouping: true,
             duration: 2000,
           })
+        }else{
+          ElMessage.error(data.message);
+          // router.replace({
+          //   path: "/login"
+          // });
+          return Promise.reject(response);
         }
         return response
       },

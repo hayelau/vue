@@ -31,6 +31,7 @@ export default defineConfig(({ command, mode }) => {
         '/api': {
           target: env.VITE_API_URL,
           changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, ''),
         },
         '/captcha/api/math': {
           target: env.VITE_API_URL,

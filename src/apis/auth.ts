@@ -1,13 +1,12 @@
 import { http } from '@/plugins/axios'
 
 type ResponseData = {
-  user: UserModel
   token: string
 }
 
-export function login(data: { mobile: string; password: string }) {
+export function login(data: { username: string; password: string }) {
   return http.request<ResponseData>({
-    url: `login`,
+    url: `/api/v1/user/login`,
     method: 'post',
     data,
   })
