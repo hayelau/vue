@@ -4,7 +4,7 @@ export default {
   path: '/admin',
   redirect: '/admin/guardList',
   component: () => import('@/layouts/admin.vue'),
-  meta: { order: 1, auth: true, menu: { title: 'Dashboard', icon: DashboardOne } },
+  meta: { order: 1, auth: true, menu: { title: '工作台', icon: DashboardOne } },
   children: [
     // {
     //   name: 'admin',

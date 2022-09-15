@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { getGuardianList } from '@/apis/guardian'
 import { guardianTableColumns } from '@/config/table'
-import { ref, reactive } from 'vue'
+import { ref, reactive, defineEmits } from 'vue'
+import GuardianEdit from './components/guardianEdit.vue'
 
 const pageReq = reactive<PageRequst>({pageNum:1, pageSize: 10 })
 const result = ref<GuardianModel[]>([])
+const isShow = ref<boolean>(false)
+const editRow = ref<GuardianModel>()
 result.value = await getGuardianList(pageReq).catch(e => {
   console.log(e)
   return []
@@ -21,16 +24,28 @@ const handleSizeChange = async (pageSize: number) => {
   // 在此刷新数据
   result.value = await getGuardianList(pageReq)
 }
+
+// const emit = defineEmits<{
+//   (e: 'update:isShow', isShow: boolean): void
+// }>()
+
+const edit = async (r:any) => {
+  console.log('编辑', r)
+  // emit('update:isShow', true)
+  editRow.value = r
+  isShow.value = true
+}
 </script>
 
 <template>
   <div class="">
+    <guardian-edit v-model:isShow='isShow' v-model:editRow='editRow'></guardian-edit>
     <HdTableRender
       :data="result.list"
       :columns="guardianTableColumns"
       :button-type="'default'"
       :buttons="[
-        { title: '查看', type: 'success' },
+        { title: '编辑', type: 'success', action: edit },
         { title: '删除', type: 'danger' },
       ]" />
 
