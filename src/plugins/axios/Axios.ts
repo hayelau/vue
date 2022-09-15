@@ -57,12 +57,12 @@ export default class Axios {
         const { data, config } = response;
         this.loading.close()
         if (data.code == 1000) {
-          ElMessage({
-            type: 'success',
-            message: response.data.message,
-            grouping: true,
-            duration: 2000,
-          })
+          // ElMessage({
+          //   type: 'success',
+          //   message: response.data.message,
+          //   grouping: true,
+          //   duration: 2000,
+          // })
         }else if (data.code == 1004){
           ElMessage.error(data.message);
           store.remove(CacheEnum.TOKEN_NAME)

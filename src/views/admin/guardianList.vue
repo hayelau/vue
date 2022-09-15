@@ -5,8 +5,10 @@ import { ref, reactive } from 'vue'
 
 const pageReq = reactive<PageRequst>({pageNum:1, pageSize: 10 })
 const result = ref<GuardianModel[]>([])
-result.value = await getGuardianList(pageReq)
-console.log(result)
+result.value = await getGuardianList(pageReq).catch(e => {
+  console.log(e)
+  return []
+})
 
 const handlePageChange = async (currentPage: number) => {
     pageReq.pageNum = currentPage

@@ -1,11 +1,17 @@
-<script setup lang="ts">
+<script setup lang='ts'>
 import { getRecordList } from '@/apis/record'
 import { recordTableColumns } from '@/config/table'
 import { ref, reactive } from 'vue'
+import SingleFile from '@/components/upload/singleFile.vue'
 
-const pageReq = reactive<PageRequst>({pageNum:1, pageSize: 10 })
+const file = ref('')
+
+const pageReq = reactive<PageRequst>({ pageNum: 1, pageSize: 10 })
 const result = ref<RecordModel[]>([])
-result.value = await getRecordList(pageReq)
+result.value = await getRecordList(pageReq).catch(e => {
+  console.log(e)
+  return []
+})
 console.log(result)
 
 const handlePageChange = async (currentPage: number) => {
@@ -22,10 +28,12 @@ const handleSizeChange = async (pageSize: number) => {
 </script>
 
 <template>
-  <div class="">
+  <div class=''>
+    <SingleFile v-model='file' />
+
     <HdTableRender
-      :data="result.list"
-      :columns="recordTableColumns"
+      :data='result.list'
+      :columns='recordTableColumns'
       :button-type="'default'"
       :buttons="[
         { title: '查看', type: 'success' },
@@ -34,15 +42,15 @@ const handleSizeChange = async (pageSize: number) => {
 
     <el-pagination
       background
-      :page-sizes="[10, 20, 50]"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="result.total"
-      :hide-on-single-page="true"
-      @current-change="handlePageChange"
+      :page-sizes='[10, 20, 50]'
+      layout='total, sizes, prev, pager, next, jumper'
+      :total='result.total'
+      :hide-on-single-page='true'
+      @current-change='handlePageChange'
       @size-change='handleSizeChange'
-      :currentPage="pageReq.pageNum"
-      :page-size="pageReq.pageSize"
-      class="bg-white !py-2 rounded-md" />
+      :currentPage='pageReq.pageNum'
+      :page-size='pageReq.pageSize'
+      class='bg-white !py-2 rounded-md' />
   </div>
 </template>
 

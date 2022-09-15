@@ -50,6 +50,7 @@ declare module '@vue/runtime-core' {
     IconWechat: typeof import('@icon-park/vue-next')['Wechat']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UploadSingleFile: typeof import('./../src/components/upload/singleFile.vue')['default']
     UploadSingleImage: typeof import('./../src/components/upload/singleImage.vue')['default']
   }
 }
