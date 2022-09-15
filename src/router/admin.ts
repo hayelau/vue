@@ -47,5 +47,11 @@ export default {
       component: () => import('@/views/admin/wechatGroupInfo.vue'),
       meta: { menu: { title: '微信群关系信息' } },
     },
+    {
+      name: 'admin.recordList',
+      path: 'recordList',
+      component: () => import('@/views/admin/recordList.vue'),
+      meta: { menu: { title: '打卡记录' } },
+    },
   ],
 } as RouteRecordRaw

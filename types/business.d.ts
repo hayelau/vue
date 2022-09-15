@@ -34,3 +34,24 @@ type InsurantModel = {
   guardLevel: string
   status: number
 }
+
+//群组模型
+type GroupModel = {
+  id: number
+  groupName: string
+  insurantId: number
+  insuarntName: string
+  guardId: number
+  guardName: string
+  priority: number
+}
+
+//打卡记录模型
+type RecordModel = {
+  id: number
+  statDate: string
+  insurantId: number
+  insuarntName: string
+  guardId: number
+  guardName: string
+}

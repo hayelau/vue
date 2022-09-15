@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import { getWechatGroupList } from '@/apis/wechatGroup'
-import { wechatGroupTableColumns } from '@/config/table'
+import { getRecordList } from '@/apis/record'
+import { recordTableColumns } from '@/config/table'
 import { ref, reactive } from 'vue'
 
 const pageReq = reactive<PageRequst>({pageNum:1, pageSize: 10 })
-const result = ref<GroupModel[]>([])
-//方式一
-// getWechatGroupList(pageReq).then((r:GroupModel[]) => {result.value = r
-//   console.log(456,result)}).catch(e => console.log(789, e))
-//方式二
-result.value = await getWechatGroupList(pageReq).catch(e => {console.log(e)
-  return []})
-//方式三 返回异常没捕捉异常会报错
-// result.value = await getWechatGroupList(pageReq)
+const result = ref<RecordModel[]>([])
+result.value = await getRecordList(pageReq)
+console.log(result)
 
 const handlePageChange = async (currentPage: number) => {
   pageReq.pageNum = currentPage
   // 在此刷新数据
-  result.value = await getWechatGroupList(pageReq)
+  result.value = await getRecordList(pageReq)
 }
 
 const handleSizeChange = async (pageSize: number) => {
   pageReq.pageSize = pageSize
   // 在此刷新数据
-  result.value = await getWechatGroupList(pageReq)
+  result.value = await getRecordList(pageReq)
 }
 </script>
 
@@ -31,7 +25,7 @@ const handleSizeChange = async (pageSize: number) => {
   <div class="">
     <HdTableRender
       :data="result.list"
-      :columns="wechatGroupTableColumns"
+      :columns="recordTableColumns"
       :button-type="'default'"
       :buttons="[
         { title: '查看', type: 'success' },

@@ -63,6 +63,11 @@ export default class Axios {
             grouping: true,
             duration: 2000,
           })
+        }else if (data.code == 1004){
+          ElMessage.error(data.message);
+          store.remove(CacheEnum.TOKEN_NAME)
+          router.push({ name: RouteEnum.LOGIN })
+          return Promise.reject(response);
         }else{
           ElMessage.error(data.message);
           // router.replace({

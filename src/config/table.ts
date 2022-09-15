@@ -89,3 +89,33 @@ export const insurantTableColumns = [
     width: 80,
   },
 ] as TableColumnsType[]
+
+
+export const wechatGroupTableColumns = [
+  { prop: 'id', label: 'ID', align: 'center', width: 80 },
+  { prop: 'groupName', label: '群名称', search: true},
+  { prop: 'insurantName', label: '被保人姓名', search: true},
+  { prop: 'guardName', label: '打卡人姓名', search: true},
+  {
+    prop: 'priority',
+    label: '打卡人优先级',
+    align: 'center',
+    type: 'radio',
+    options: [
+      { label: '主', value: '1' },
+      { label: '备', value: '2' },
+    ],
+    // tag_field: 'ee',
+    width: 120,
+  },
+] as TableColumnsType[]
+
+
+export const recordTableColumns = [
+  { prop: 'id', label: 'ID', align: 'center', width: 80 },
+  { prop: 'statDate', label: '打卡日期', search: true},
+  { prop: 'insurantId', label: '被保人ID', search: true},
+  { prop: 'insurantName', label: '被保人姓名', search: true},
+  { prop: 'guardId', label: '打卡人ID', search: true},
+  { prop: 'guardName', label: '打卡人姓名', search: true},
+] as TableColumnsType[]
