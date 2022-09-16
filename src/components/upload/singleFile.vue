@@ -5,6 +5,7 @@ import { uploadExcelFile } from '@/apis/upload'
 
 const props = defineProps<{
   modelValue: string | null
+  tip: string
 }>()
 const fileName = ref(props.modelValue)
 
@@ -34,7 +35,7 @@ const request = async (options: any) => {
       </el-icon>
       <template #tip>
         <div class='el-upload__tip'>
-          上传Exel格式文件
+          {{ tip ?? '上传文件' }}
         </div>
       </template>
     </el-upload>

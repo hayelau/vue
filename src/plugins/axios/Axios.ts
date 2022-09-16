@@ -102,9 +102,7 @@ export default class Axios {
             ElMessage({ type: 'error', message: message ?? '请示过于频繁，请稍候再试' })
             break
           default:
-            if (message) {
-              ElMessage({ type: 'error', message: message ?? '服务器错误' })
-            }
+            ElMessage({ type: 'error', message: message ?? '服务器错误' })
         }
         return Promise.reject(error)
       },

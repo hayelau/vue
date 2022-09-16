@@ -25,20 +25,32 @@ const handleSizeChange = async (pageSize: number) => {
   // 在此刷新数据
   result.value = await getRecordList(pageReq)
 }
+
+const search = async (param: { searchFields: string[]; searchContent: string }) => {
+  console.log('search', param)
+  const { searchContent } = param
+  console.log('aa', searchContent)
+  console.log('cc', param.searchFields)
+}
 </script>
 
 <template>
   <div class=''>
-    <SingleFile v-model='file' />
+    <div class='header'>
+      <SingleFile v-model='file' tip='上传打卡记录文件(Excel格式)' />
+    </div>
 
     <HdTableRender
+      :isMultipleSearchSelected='false'
       :data='result.list'
       :columns='recordTableColumns'
       :button-type="'default'"
       :buttons="[
         { title: '查看', type: 'success' },
         { title: '删除', type: 'danger' },
-      ]" />
+      ]"
+      @search='search'
+    />
 
     <el-pagination
       background
@@ -55,5 +67,8 @@ const handleSizeChange = async (pageSize: number) => {
 </template>
 
 <style lang='scss' scoped>
-
+.header {
+  margin-bottom: 22px;
+  text-align: right;
+}
 </style>

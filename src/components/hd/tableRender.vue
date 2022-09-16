@@ -3,13 +3,17 @@ import dayjs from 'dayjs'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
-const { data, buttons, buttonWidth, columns } = defineProps<{
+const { data, buttons, buttonWidth, columns, isMultipleSearchSelected} = defineProps<{
   data?: Record<string, any>[]
   buttons?: TableButton[]
   buttonWidth?: number
   columns: TableColumnsType[]
+  isMultipleSearchSelected: {
+    type: boolean,
+    default: false
+  }
 }>()
-
+console.log('mmmm', isMultipleSearchSelected)
 const emit = defineEmits<{
   (e: 'action', model: any, command: string): void
   (e: 'search', params: { searchFields: string[]; searchContent: string }): void
@@ -37,7 +41,7 @@ const buttonClientEvent = async (args: any) => {
 <template>
   <div v-if="data">
     <div class="grid grid-cols-[auto_1fr_auto] items-center bg-white p-2 border rounded-sm mb-2">
-      <el-select v-model="searchFields" collapse-tags placeholder="请选择字段" filterable class="mr-1" multiple>
+      <el-select v-model="searchFields" placeholder="请选择字段" filterable class="mr-1" :multiple='isMultipleSearchSelected' :collapse-tags='isMultipleSearchSelected'>
         <el-option
           v-for="item in columns"
           :key="item.prop"
