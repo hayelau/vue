@@ -6,32 +6,61 @@ import SingleFile from '@/components/upload/singleFile.vue'
 
 const file = ref('')
 
-const pageReq = reactive<PageRequst>({ pageNum: 1, pageSize: 10 })
+const pageReq = reactive<SuccessRecordQueryRequest>({ pageNum: 1, pageSize: 10 })
 const result = ref<RecordModel[]>([])
-result.value = await getRecordList(pageReq).catch(e => {
-  console.log(e)
-  return []
-})
-console.log(result)
+
+const refresh = async () => {
+  // 在此刷新数据
+  result.value = await getRecordList(pageReq).catch(e => {
+    console.log(e)
+    return []
+  })
+}
 
 const handlePageChange = async (currentPage: number) => {
   pageReq.pageNum = currentPage
   // 在此刷新数据
-  result.value = await getRecordList(pageReq)
+  await refresh()
 }
 
 const handleSizeChange = async (pageSize: number) => {
   pageReq.pageSize = pageSize
   // 在此刷新数据
-  result.value = await getRecordList(pageReq)
+  await refresh()
 }
 
 const search = async (param: { searchFields: string[]; searchContent: string }) => {
+  Object.keys(pageReq).forEach(key => {
+    if ((key as string !== 'pageNum') && (key as string !== 'pageSize'))
+    {
+      delete pageReq[key]
+    }
+  })
+  pageReq.pageNum = 1
   console.log('search', param)
-  const { searchContent } = param
-  console.log('aa', searchContent)
-  console.log('cc', param.searchFields)
+  const { searchFields, searchContent } = param
+  if (searchFields){
+    switch (searchFields.toString()) {
+      case 'guardId':
+        console.log('search for guardId', searchContent)
+        pageReq[searchFields.toString()] = Number(searchContent)
+        break
+      case 'insurantId':
+        console.log('search for insurantId', searchContent)
+        pageReq[searchFields.toString()] = Number(searchContent)
+        break
+      default:
+        console.log('search for ', pageReq[searchFields.toString()], searchContent)
+        pageReq[searchFields.toString()] = searchContent
+        break
+    }
+  }
+  // 在此刷新数据
+  await refresh()
 }
+
+await refresh()
+
 </script>
 
 <template>
@@ -44,11 +73,6 @@ const search = async (param: { searchFields: string[]; searchContent: string }) 
       :isMultipleSearchSelected='false'
       :data='result.list'
       :columns='recordTableColumns'
-      :button-type="'default'"
-      :buttons="[
-        { title: '查看', type: 'success' },
-        { title: '删除', type: 'danger' },
-      ]"
       @search='search'
     />
 

@@ -27,3 +27,21 @@ interface PageRequst {
   pageNum: number
   pageSize: number
 }
+
+interface GuardianQueryRequest extends PageRequst {
+  // id?: number
+  // name?: string
+  // phone?: string
+  // wechatName?: string
+  // staffWechatName?: string
+  [key:string]: string|number
+}
+
+interface SuccessRecordQueryRequest extends PageRequst {
+  // guardId?: number
+  // guardName?: string
+  // insurantId?: number
+  // insurantName?: string
+  // statDate?: string
+  [key:string]: string|number
+}

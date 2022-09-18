@@ -1,6 +1,6 @@
 import { http } from '@/plugins/axios'
 
-export async function getRecordList(data: PageRequst) {
+export async function getRecordList(data: SuccessRecordQueryRequest) {
   const res = await http.request<RecordModel, ResponsePageResult<RecordModel>>({
     url: `api/v1/record/list`,
     method: "post",

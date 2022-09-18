@@ -1,28 +1,32 @@
 <script setup lang='ts'>
-import { getGuardianList, addGuardian, editGuardian } from '@/apis/guardian'
+import { getGuardianList, editGuardian } from '@/apis/guardian'
 import { guardianTableColumns } from '@/config/table'
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, nextTick } from 'vue'
 import GuardianEdit from './components/guardianEdit.vue'
 import { ElMessageBox } from 'element-plus'
 
-const pageReq = reactive<PageRequst>({ pageNum: 1, pageSize: 10 })
+const pageReq = reactive<GuardianQueryRequest>({ pageNum: 1, pageSize: 10 })
 const result = ref<GuardianModel[]>([])
 const dialogFormVisible = ref<boolean>(false)
 const gg = ref<boolean>(false)
 const editRow = ref<GuardianModel>()
-result.value = await getGuardianList(pageReq).catch(e => {
-  console.log(e)
-  return []
-})
+// const isSearch = ref<boolean>(false)
+const pageShow = ref<boolean>(true)
 
-const handlePageChange = async (currentPage: number) => {
+
+const handlePageChange = (currentPage: number) => {
+  console.log('gaib', currentPage)
   pageReq.pageNum = currentPage
-  // 在此刷新数据
-  await refresh()
+  // if (isSearch.value){
+  //   isSearch.value = false
+  //   return
+  // }
+  refresh()
+  // isSearch.value = false
 }
 
-const handleSizeChange = async (pageSize: number) => {
-  pageReq.pageSize = pageSize
+const handleSizeChange = async (switchPageSize: number) => {
+  pageReq.pageSize = switchPageSize
   // 在此刷新数据
   await refresh()
 }
@@ -60,7 +64,47 @@ const deleteGuard = async (r: any) => {
 
 const refresh = async () => {
   // 在此刷新数据
-  result.value = await getGuardianList(pageReq)
+  result.value = await getGuardianList(pageReq).catch(e => {
+    console.log(e)
+    return []
+  })
+}
+
+const search = async (param: { searchFields: string[]; searchContent: string }) => {
+  // isSearch.value = true
+  Object.keys(pageReq).forEach(key => {
+    if ((key as string !== 'pageNum') && (key as string !== 'pageSize'))
+    {
+      delete pageReq[key]
+    }
+  })
+  pageReq.pageNum = 1
+  console.log('search', param)
+  const { searchFields, searchContent } = param
+
+  if (searchFields) {
+    switch (searchFields.toString()) {
+      case 'id':
+        pageReq[searchFields.toString()] = Number(searchContent)
+        break
+      // case 'name':
+      //   searchReq[searchFields.toString()] = searchContent
+      //   console.log('name', searchContent)
+      //   break
+      default:
+        pageReq[searchFields.toString()] = searchContent
+        break
+    }
+  }
+  // pageShow.value = false
+  await refresh()
+  // await nextTick(()=>{
+  //   console.log('tick.....')
+  //   pageShow.value = true
+  // })
+  // result.value = await getGuardianList(searchReq)
+  // console.log('souwan')
+  // isSearch.value = false
 }
 
 // 保证每次打开重新获取用户角色数据
@@ -74,6 +118,8 @@ watch(gg, val => {
   console.log('gg变', val)
   if (!val) console.log('gg变', val)
 })
+
+refresh()
 </script>
 
 <template>
@@ -98,9 +144,12 @@ watch(gg, val => {
       :buttons="[
         { title: '编辑', type: 'success', action: editGuard },
         { title: '删除', type: 'danger', action: deleteGuard },
-      ]" />
+      ]"
+      @search='search'
+    />
 
     <el-pagination
+      v-if='pageShow'
       background
       :page-sizes='[10, 20, 50]'
       layout='total, sizes, prev, pager, next, jumper'
