@@ -62,7 +62,10 @@ const deleteGuard = async (r: any) => {
     })
 }
 
-const refresh = async () => {
+const refresh = async (isAdd : boolean = false) => {
+  if (isAdd){
+    resetPageReq()
+  }
   // 在此刷新数据
   result.value = await getGuardianList(pageReq).catch(e => {
     console.log(e)
@@ -72,13 +75,7 @@ const refresh = async () => {
 
 const search = async (param: { searchFields: string[]; searchContent: string }) => {
   // isSearch.value = true
-  Object.keys(pageReq).forEach(key => {
-    if ((key as string !== 'pageNum') && (key as string !== 'pageSize'))
-    {
-      delete pageReq[key]
-    }
-  })
-  pageReq.pageNum = 1
+  resetPageReq()
   console.log('search', param)
   const { searchFields, searchContent } = param
 
@@ -118,6 +115,15 @@ watch(gg, val => {
   console.log('gg变', val)
   if (!val) console.log('gg变', val)
 })
+
+const resetPageReq = () => {
+  Object.keys(pageReq).forEach(key => {
+    if ((key as string !== 'pageNum') && (key as string !== 'pageSize')) {
+      delete pageReq[key]
+    }
+  })
+  pageReq.pageNum = 1
+}
 
 refresh()
 </script>

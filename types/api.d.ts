@@ -37,6 +37,15 @@ interface GuardianQueryRequest extends PageRequst {
   [key:string]: string|number
 }
 
+interface InsurantQueryRequest extends PageRequst {
+  // id?: number
+  // name?: string
+  // phone?: string
+  // wechatName?: string
+  // staffWechatName?: string
+  [key:string]: string|number
+}
+
 interface SuccessRecordQueryRequest extends PageRequst {
   // guardId?: number
   // guardName?: string

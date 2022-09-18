@@ -4,17 +4,31 @@
       <el-form-item label='ID' label-width='140px' v-if='editRow.id'>
         <el-input v-model='editRow.id' autocomplete='off' disabled='false' />
       </el-form-item>
-      <el-form-item label='打卡人姓名' label-width='140px'>
-        <el-input v-model='editRow.name' autocomplete='off' />
+      <el-form-item label='被保人人姓名' label-width='140px'>
+        <el-input v-model='editRow.insurantName' autocomplete='off' />
       </el-form-item>
-      <el-form-item label='打卡人手机' label-width='140px'>
-        <el-input v-model='editRow.phone' autocomplete='off' />
+      <el-form-item label='被保人身份证' label-width='140px'>
+        <el-input v-model='editRow.insurantIdNum' autocomplete='off' />
       </el-form-item>
-      <el-form-item label='打卡人微信名称' label-width='140px'>
-        <el-input v-model='editRow.wechatName' autocomplete='off' />
+      <el-form-item label='医保类型' :label-width='formLabelWidth'>
+        <el-select v-model='editRow.dataSource' placeholder='选择医保类型'>
+          <el-option label='职工' value='职工' />
+          <el-option label='居民' value='居民' />
+          <el-option label='省直' value='省直' />
+          <el-option label='市直' value='市直' />
+        </el-select>
       </el-form-item>
-      <el-form-item label='跟进客服微信名称' label-width='140px'>
-        <el-input v-model='editRow.staffWechatName' autocomplete='off' />
+      <el-form-item label='能力等级' :label-width='formLabelWidth'>
+        <el-select v-model='editRow.guardLevel' placeholder='请选择能力等级'>
+          <el-option label='长护1级' value='长护1级' />
+          <el-option label='长护2级' value='长护2级' />
+          <el-option label='长护3级' value='长护3级' />
+          <el-option label='老年人能力等级1级' value='老年人能力等级1级' />
+          <el-option label='老年人能力等级2级' value='老年人能力等级2级' />
+          <el-option label='老年人能力等级3级' value='老年人能力等级3级' />
+          <el-option label='老年人能力等级4级' value='老年人能力等级4级' />
+          <el-option label='老年人能力等级5级' value='老年人能力等级5级' />
+        </el-select>
       </el-form-item>
       <el-form-item label='状态' :label-width='formLabelWidth'>
         <el-select v-model='editRow.status' placeholder='选择状态'>
@@ -37,12 +51,11 @@
 
 <script setup lang='ts'>
 import { ref, defineProps, defineEmits, watch } from 'vue'
-import { addGuardian, editGuardian } from '@/apis/guardian'
+import { addInsurant, editInsurant } from '@/apis/insurant'
 
 const props = defineProps<{
   dialogFormVisible: boolean,
-  editRow?: GuardianModel,
-  gg:boolean
+  editRow?: InsurantModel,
 }>()
 
 const title = ref<string>('新增')
@@ -50,22 +63,21 @@ const title = ref<string>('新增')
 // const emit = defineEmits<{
 //   (e: 'update:dialogFormVisible', dialogFormVisible: boolean): void
 // }>()
-const emit = defineEmits(['update:dialogFormVisible', 'refresh', 'update:gg'])
+const emit = defineEmits(['update:dialogFormVisible', 'refresh'])
 
 const handleClose = () => {
   console.log('关闭')
   emit('update:dialogFormVisible', false)
-  emit('update:gg', true)
 }
 
 const handleConfirm = async () => {
   console.log('确认关闭')
-  const guardianModel:GuardianModel = props.editRow!
-  let isAdd = false
-  if (guardianModel.id){
-    await editGuardian(guardianModel)
+  const insurantModel:InsurantModel = props.editRow!
+  let isAdd:boolean = false
+  if (insurantModel.id){
+    await editInsurant(insurantModel)
   }else {
-    await addGuardian(guardianModel)
+    await addInsurant(insurantModel)
     isAdd = true
   }
 
