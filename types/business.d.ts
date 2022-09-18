@@ -28,7 +28,7 @@ type GuardianModel = {
 //被保人模型
 type InsurantModel = {
   id: number
-  insuarntName: string
+  insurantName: string
   insurantIdNum: string
   dataSource: string
   guardLevel: string
@@ -40,7 +40,7 @@ type GroupModel = {
   id: number
   groupName: string
   insurantId: number
-  insuarntName: string
+  insurantName: string
   guardId: number
   guardName: string
   priority: number
@@ -51,7 +51,7 @@ type RecordModel = {
   id: number
   statDate: string
   insurantId: number
-  insuarntName: string
+  insurantName: string
   guardId: number
   guardName: string
 }

@@ -2,7 +2,7 @@
   <el-dialog :model-value='dialogFormVisible' :title='title' @close='handleClose'>
     <el-form :model-value='editRow'>
       <el-form-item label='ID' label-width='140px' v-if='editRow.id'>
-        <el-input v-model='editRow.id' autocomplete='off' disabled='false' />
+        <el-input v-model='editRow.id' autocomplete='off' :disabled='false' />
       </el-form-item>
       <el-form-item label='微信群名称' label-width='140px'>
         <el-input v-model='editRow.groupName' autocomplete='off' />
