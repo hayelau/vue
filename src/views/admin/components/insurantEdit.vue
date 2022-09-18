@@ -4,7 +4,7 @@
       <el-form-item label='ID' label-width='140px' v-if='editRow.id'>
         <el-input v-model='editRow.id' autocomplete='off' disabled='false' />
       </el-form-item>
-      <el-form-item label='被保人人姓名' label-width='140px'>
+      <el-form-item label='被保人姓名' label-width='140px'>
         <el-input v-model='editRow.insurantName' autocomplete='off' />
       </el-form-item>
       <el-form-item label='被保人身份证' label-width='140px'>

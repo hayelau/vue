@@ -102,8 +102,8 @@ export const wechatGroupTableColumns = [
     align: 'center',
     type: 'radio',
     options: [
-      { label: '主', value: '1' },
-      { label: '备', value: '2' },
+      { label: '主', value: 1 },
+      { label: '备', value: 2 },
     ],
     // tag_field: 'ee',
     width: 120,

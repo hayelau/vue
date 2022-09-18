@@ -13,6 +13,6 @@ import { isLogin } from '@/utils/helper'
         用户登录
       </FormButtonComponent>
     </div>
-    <div class="text-gray-300 text-xs font-mono drop-shadow-md mt-6">燃点生命</div>
+    <div class="text-gray-300 text-xs font-mono drop-shadow-md mt-6">打卡通知管理平台</div>
   </div>
 </template>

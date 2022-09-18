@@ -19,7 +19,7 @@ onMounted(() => {
           fill="#dcdcdc"
           class="mr-2"
           @click="$router.push({ name: RouteEnum.HOME })" />
-        <span class="text-md cursor-pointer" @click="$router.push({ name: RouteEnum.ADMIN })">燃点生命</span>
+        <span class="text-md cursor-pointer" @click="$router.push({ name: RouteEnum.ADMIN })">打卡通知管理平台</span>
       </div>
       <!-- 菜单 -->
       <div class="container">
