@@ -19,7 +19,7 @@ const { show } = useMenu()
       <el-dropdown>
         <span class="el-dropdown-link flex items-center">
           <ElImage
-            src="/assets/logo.png"
+            src="/images/logo2.png"
             fit="cover"
             class="w-8 h-8 rounded-full border-white" />
 <!--          <span class="ml-1 text-sm">{{ user.info?.nickname }}</span>-->
