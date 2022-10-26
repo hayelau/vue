@@ -1,8 +1,9 @@
 <script setup lang='ts'>
-import { getRecordList } from '@/apis/record'
+import { getRecordList, notifyNoRecord } from '@/apis/record'
 import { recordTableColumns } from '@/config/table'
 import { ref, reactive } from 'vue'
 import SingleFile from '@/components/upload/singleFile.vue'
+import moment from 'moment'
 
 const file = ref('')
 
@@ -59,6 +60,15 @@ const search = async (param: { searchFields: string[]; searchContent: string }) 
   await refresh()
 }
 
+const notifyNow = async () => {
+  const now : string = moment(new Date()).format("YYYY-MM-DD")
+  console.log(now)
+  await notifyNoRecord({ statDate: now}).catch(e => {
+    console.log(e)
+    return []
+  })
+}
+
 await refresh()
 
 </script>
@@ -67,6 +77,11 @@ await refresh()
   <div class=''>
     <div class='header'>
       <SingleFile v-model='file' tip='上传打卡记录文件(Excel格式)' />
+      <el-popconfirm title="确定已上传正确打卡记录文件?"  @confirm='notifyNow'>
+        <template #reference>
+          <el-button type='primary'>马上通知</el-button>
+        </template>
+      </el-popconfirm>
     </div>
 
     <HdTableRender

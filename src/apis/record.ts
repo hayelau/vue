@@ -9,6 +9,11 @@ export async function getRecordList(data: SuccessRecordQueryRequest) {
   return res.data
 }
 
-// export async function userList() {
-//   return await http.request<UserModel, ResponsePageResult<GuardianModel>>({ url: `user` })
-// }
+export async function notifyNoRecord(data: DateNotifyRequest) {
+  const res = await http.request<GroupModel, ResponsePageResult<GroupModel>>({
+    url: `api/v1/record/notifyDailyNoRecords`,
+    method: "post",
+    data: data
+  })
+  return res.data
+}

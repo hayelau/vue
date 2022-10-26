@@ -43,6 +43,7 @@ type GroupModel = {
   insurantName: string
   guardId: number
   guardName: string
+  guardPhone?: string
   priority: number
 }
 

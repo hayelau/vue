@@ -63,3 +63,7 @@ interface SuccessRecordQueryRequest extends PageRequst {
   // statDate?: string
   [key:string]: string|number
 }
+
+interface DateNotifyRequest {
+  statDate: string
+}
