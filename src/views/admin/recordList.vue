@@ -4,6 +4,7 @@ import { recordTableColumns } from '@/config/table'
 import { ref, reactive } from 'vue'
 import SingleFile from '@/components/upload/singleFile.vue'
 import moment from 'moment'
+import { ElMessage } from 'element-plus'
 
 const file = ref('')
 
@@ -61,10 +62,22 @@ const search = async (param: { searchFields: string[]; searchContent: string }) 
 }
 
 const notifyNow = async () => {
-  const now : string = moment(new Date()).format("YYYY-MM-DD")
+  const now:string = moment(new Date()).format("YYYY-MM-DD")
   console.log(now)
-  await notifyNoRecord({ statDate: now}).catch(e => {
+  notifyNoRecord({ statDate: now}).then((resp:GroupModel[]) => {
+    console.log(resp)
+    ElMessage({
+      showClose: true,
+      message: "成功通知!",
+      type: 'success',
+    })
+  }).catch(e => {
     console.log(e)
+    // ElMessage({
+    //   showClose: true,
+    //   message: e,
+    //   type: 'error',
+    // })
     return []
   })
 }
